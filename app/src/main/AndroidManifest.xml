@@ -16,6 +16,11 @@
         android:theme="@style/Theme.techtopstore"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
         <activity
             android:name=".LoginActivity"
             android:exported="false" />

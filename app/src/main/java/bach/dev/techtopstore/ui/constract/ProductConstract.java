@@ -8,6 +8,7 @@ public interface ProductConstract {
     interface View {
         void showLoading();
         void hideLoading();
+        void showSuccess(String message);
         void showError(String message);
         void showProduct(ProductDto product);
         void setFavourite(boolean isFavourite);
@@ -16,7 +17,7 @@ public interface ProductConstract {
     interface Presenter {
         void setView(View view);
         void getProduct(int productId);
-        void setFavourite(ProductModel product);
+        void setFavourite(ProductModel product, boolean isFavourite); // Updated to include status
         void checkFavourite(int productId);
         void addToCart(OrderItemDto orderItemDto);
         void getOrderByStatus(int userId, String status, OrderItemDto orderItemDto);

@@ -6,9 +6,6 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import bach.dev.techtopstore.ui.constract.LoginConstract;
 import bach.dev.techtopstore.ui.presenter.LoginPresenter;
@@ -36,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginConstract.V
     private void initGUI() {
         edtEmail = findViewById(R.id.edt_email);
         edtPassword = findViewById(R.id.edt_password);
-        btnLogin = findViewById(R.id.btn_login);
+        btnLogin = findViewById(R.id.btn_primary_action);
         btnLogin.setOnClickListener(v -> {
             mPresenter.login(edtEmail.getText().toString(), edtPassword.getText().toString());
         });

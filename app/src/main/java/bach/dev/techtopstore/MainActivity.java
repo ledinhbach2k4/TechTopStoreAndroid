@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import bach.dev.techtopstore.ui.fragment.CartFragment;
 import bach.dev.techtopstore.ui.fragment.ChatFragment;
 import bach.dev.techtopstore.ui.fragment.FavouriteFragment;
 import bach.dev.techtopstore.ui.fragment.HomeFragment;
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity{
             };
             if(item.getItemId() == R.id.nav_chat) {
                 selectedFragment = new ChatFragment();
+            };
+            if(item.getItemId() == R.id.nav_cart) {
+                selectedFragment = new CartFragment();
             };
             if(item.getItemId() == R.id.nav_setting) {
                 selectedFragment = new SettingFragment();

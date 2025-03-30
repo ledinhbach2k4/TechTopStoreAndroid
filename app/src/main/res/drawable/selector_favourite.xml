@@ -11,6 +11,6 @@
 
     <!-- Khi ImageView không có trạng thái nào (mặc định) -->
     <item
-        android:drawable="@drawable/ic_not_favourite" />
+        android:drawable="@drawable/ic_not_favorite" />
 
 </selector>

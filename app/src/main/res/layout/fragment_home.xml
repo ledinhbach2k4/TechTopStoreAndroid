@@ -24,7 +24,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
-                android:text="What do you want to eat today?"
+                android:text="What do you want to buy today?"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"/>

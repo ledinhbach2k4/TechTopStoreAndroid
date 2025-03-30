@@ -1,27 +1,56 @@
 package bach.dev.techtopstore.data.dto;
 
+import com.google.gson.annotations.SerializedName;
+
 public class OrderItemDto {
+    @SerializedName("id")
     private int id;
-    private int productId;
-    private int orderId;
-    private int quantity;
+
+    @SerializedName("product_name")
+    private String productName;
+
+    @SerializedName("price")
     private double price;
 
-    public OrderItemDto(int productId, int orderId, int quantity, double price) {
-        this.productId = productId;
-        orderId = orderId;
-        this.quantity = quantity;
-        this.price = price;
+    @SerializedName("quantity")
+    private int quantity;
+
+    @SerializedName("thumbnail")
+    private String thumbnail;
+
+    @SerializedName("order_id")
+    private int orderId;
+
+    // Constructor mặc định
+    public OrderItemDto() {
+        this.productName = "";
+        this.price = 0.0;
+        this.quantity = 0;
+        this.thumbnail = "";
+        this.orderId = 0;
     }
 
-    public OrderItemDto(int id, int productId, int orderId, int quantity, double price) {
+    // Constructor đầy đủ
+    public OrderItemDto(int id, String productName, double price, int quantity, String thumbnail, int orderId) {
         this.id = id;
-        this.productId = productId;
-        orderId = orderId;
-        this.quantity = quantity;
+        this.productName = productName != null ? productName : "";
         this.price = price;
+        this.quantity = quantity;
+        this.thumbnail = thumbnail != null ? thumbnail : "";
+        this.orderId = orderId;
     }
 
+    // Constructor mới cho 4 tham số
+    public OrderItemDto(int id, int orderId, int quantity, double price) {
+        this.id = id;
+        this.orderId = orderId;
+        this.quantity = quantity;
+        this.price = price;
+        this.productName = ""; // Mặc định nếu không có tên sản phẩm
+        this.thumbnail = "";   // Mặc định nếu không có thumbnail
+    }
+
+    // Getters và Setters
     public int getId() {
         return id;
     }
@@ -30,20 +59,20 @@ public class OrderItemDto {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductName(String productName) {
+        this.productName = productName != null ? productName : "";
     }
 
-    public int getOrderId() {
-        return orderId;
+    public double getPrice() {
+        return price;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQuantity() {
@@ -54,11 +83,31 @@ public class OrderItemDto {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail != null ? thumbnail : "";
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItemDto{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", orderId=" + orderId +
+                '}';
     }
 }

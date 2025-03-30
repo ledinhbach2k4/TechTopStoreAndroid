@@ -11,15 +11,7 @@
         android:layout_height="250dp"
         android:src="@drawable/techtopstore_logo" />
     <TextView
-        android:text="Delicious Food"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:text="We help you find the best food"
+        android:text="We help you find the best devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

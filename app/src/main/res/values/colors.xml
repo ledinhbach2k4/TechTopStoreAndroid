@@ -4,5 +4,6 @@
     <color name="black">#FF000000</color>
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="bg_splash">#efd8d1</color>
+    <color name="bg_splash">#00C8FF</color>
+    <color name="facebook_blue">#4267B2</color>
 </resources>

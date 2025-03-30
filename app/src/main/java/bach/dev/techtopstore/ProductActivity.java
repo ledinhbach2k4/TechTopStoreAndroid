@@ -2,10 +2,13 @@ package bach.dev.techtopstore;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -14,11 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import bach.dev.techtopstore.data.dao.ProductDao;
 import bach.dev.techtopstore.data.dto.OrderDto;
 import bach.dev.techtopstore.data.dto.OrderItemDto;
 import bach.dev.techtopstore.data.dto.ProductDto;
 import bach.dev.techtopstore.data.model.ProductModel;
+import bach.dev.techtopstore.data.room.RoomHelper;
 import bach.dev.techtopstore.ui.constract.ProductConstract;
 import bach.dev.techtopstore.ui.presenter.ProductPresenter;
 import bach.dev.techtopstore.util.Constants;
@@ -86,6 +93,14 @@ public class ProductActivity extends AppCompatActivity implements ProductConstra
     public void hideLoading() {}
 
     @Override
+    public void showSuccess(String message) {
+        runOnUiThread(() -> {
+            // Hiển thị thông báo thành công
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    @Override
     public void showError(String message) {}
 
     @Override
@@ -137,12 +152,13 @@ public class ProductActivity extends AppCompatActivity implements ProductConstra
 
     @Override
     public void setFavourite(boolean isFavourite) {
-        if(isFavourite) {
-            ivFavourite.setImageResource(R.drawable.ic_favorite);
-        } else {
-            ivFavourite.setImageResource(R.drawable.ic_not_favourite);
-        }
+        runOnUiThread(() -> {
+            ivFavourite.setTag(isFavourite ? "favorite" : "not_favorite");
+            ivFavourite.setImageResource(isFavourite ? R.drawable.ic_favorite : R.drawable.ic_not_favorite);
+        });
     }
+
+
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -154,7 +170,15 @@ public class ProductActivity extends AppCompatActivity implements ProductConstra
             }
         }
 
+
         private void actionFavourite() {
+            if (productDto == null) return;
+
+            boolean newFavouriteStatus = !"favorite".equals(ivFavourite.getTag()); // Kiểm tra trạng thái hiện tại
+            ivFavourite.setTag(newFavouriteStatus ? "favorite" : "not_favorite"); // Lưu trạng thái mới
+            setFavourite(newFavouriteStatus); // Cập nhật UI ngay lập tức
+
+            // Cập nhật trạng thái vào Database thông qua Presenter
             ProductModel product = new ProductModel(
                     productDto.getName(),
                     productDto.getDescription(),
@@ -163,8 +187,10 @@ public class ProductActivity extends AppCompatActivity implements ProductConstra
                     productDto.getQuantity(),
                     productDto.getCategoryId()
             );
-            mPresenter.setFavourite(product);
+
+            mPresenter.setFavourite(product, newFavouriteStatus); // ✅ Gọi hàm mới
         }
+
 
         private void addToCart() {
             //Get Order by userID and Status

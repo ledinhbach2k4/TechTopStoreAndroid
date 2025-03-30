@@ -159,7 +159,7 @@
         android:padding="16dp"
         android:background="@color/white"
         android:elevation="8dp">
-
+`
         <Button
             android:id="@+id/tv_add_to_cart"
             android:layout_width="0dp"

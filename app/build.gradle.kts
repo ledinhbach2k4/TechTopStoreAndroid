@@ -39,6 +39,10 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
 
+    implementation ("com.facebook.android:facebook-messenger:[5,6)")
+    implementation ("com.facebook.android:facebook-android-sdk:latest.release")
+
+
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.picasso:picasso:2.8")
