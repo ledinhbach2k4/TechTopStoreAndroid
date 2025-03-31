@@ -18,22 +18,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                android:text="Hello, Alex"
+                android:text="Hello, Peter."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
-                android:text="What do you want to buy today?"
+                android:text="Build your dream PC today."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"/>
         </LinearLayout>
-        <ImageView
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:scaleType="fitXY"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="34dp">
+
+            <ImageView
+                android:padding="2dp"
+                android:src="@drawable/ic_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
+
+
     </LinearLayout>
 
     <!-- Search Section -->
@@ -49,8 +58,10 @@
             android:layout_height="wrap_content"
             android:hint="Search for food"
             android:padding="10dp"
-            android:background="@drawable/cr64bf7f7f7"
-            android:textColor="@android:color/black"/>
+            android:background="@drawable/search_background"
+            android:textColor="@android:color/black"
+            android:layout_marginEnd="8dp"/> <!-- Thêm margin bên phải -->
+
         <Button
             android:id="@+id/btn_search"
             android:text="Search"
@@ -59,6 +70,7 @@
             android:padding="10dp"
             android:textColor="@android:color/white"
             android:backgroundTint="@android:color/holo_orange_dark"/>
+
     </LinearLayout>
 
     <!-- Categories Section -->

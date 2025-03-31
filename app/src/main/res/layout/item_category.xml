@@ -3,26 +3,26 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="6dp"
-    android:layout_margin="6dp"
+    android:padding="10dp"
+    android:layout_margin="8dp"
     android:background="@drawable/background_category"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:elevation="4dp"> <!-- Tạo cảm giác nổi hơn -->
 
     <!-- Thumbnail sản phẩm -->
     <ImageView
         android:id="@+id/iv_category_thumbnail"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:scaleType="centerCrop"
-        android:layout_marginEnd="4dp"
-        android:layout_gravity="center_vertical"/>
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@+id/tv_category_name"
         android:text="Category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:textColor="@android:color/white"
-        android:paddingHorizontal="6dp"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"/>
 </LinearLayout>
