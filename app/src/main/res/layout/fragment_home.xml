@@ -56,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Search for food"
+            android:hint="Search for products..."
             android:padding="10dp"
             android:background="@drawable/search_background"
             android:textColor="@android:color/black"

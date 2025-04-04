@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,9 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import bach.dev.techtopstore.auth.Auth;
 
 public class AuthActivity extends AppCompatActivity {
-    private EditText edtEmail, edtPassword, edtConfirmPassword;
-    private Button btnPrimaryAction;
+    private EditText emailEditText, passwordEditText, confirmPasswordEditText;
+    private Button loginButton;
     private TextView toggleAuthMode, titleText;
+    private ProgressBar progressBar;
     private boolean isLoginMode = true;
     private Auth auth;
 
@@ -34,15 +36,19 @@ public class AuthActivity extends AppCompatActivity {
         }
 
         // Ánh xạ view
-        edtEmail = findViewById(R.id.edt_email);
-        edtPassword = findViewById(R.id.edt_password);
-        edtConfirmPassword = findViewById(R.id.edt_confirm_password);
-        btnPrimaryAction = findViewById(R.id.btn_primary_action);
-        toggleAuthMode = findViewById(R.id.toggle_auth_mode);
-        titleText = findViewById(R.id.title_text);
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        loginButton = findViewById(R.id.loginButton);
+        progressBar = findViewById(R.id.progressBar);
+
+        // Các thành phần không có trong activity_login.xml hiện tại
+        // Sẽ cần thêm vào layout nếu muốn giữ đầy đủ chức năng
+        confirmPasswordEditText = findViewById(R.id.edt_confirm_password); // Chưa có trong layout
+        toggleAuthMode = findViewById(R.id.toggle_auth_mode);             // Chưa có trong layout
+        titleText = findViewById(R.id.title_text);                        // Chưa có trong layout
 
         // Xử lý sự kiện nút chính
-        btnPrimaryAction.setOnClickListener(v -> {
+        loginButton.setOnClickListener(v -> {
             if (isLoginMode) {
                 handleLogin();
             } else {
@@ -50,53 +56,59 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        // Xử lý chuyển đổi giữa đăng nhập/đăng ký
-        toggleAuthMode.setOnClickListener(v -> toggleAuthMode());
+        // Xử lý chuyển đổi giữa đăng nhập/đăng ký (nếu toggleAuthMode tồn tại)
+        if (toggleAuthMode != null) {
+            toggleAuthMode.setOnClickListener(v -> toggleAuthMode());
+        }
     }
 
     private void handleLogin() {
-        String email = edtEmail.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng điền đầy đủ các trường", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Giả lập đăng nhập thành công, trong thực tế sẽ call API
-        // và nhận token từ server
-        String mockToken = "mock_token_" + System.currentTimeMillis();
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);
 
-        // Lưu thông tin đăng nhập
+        // Giả lập đăng nhập thành công
+        String mockToken = "mock_token_" + System.currentTimeMillis();
         auth.login(email, mockToken);
 
-        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
+        loginButton.setEnabled(true);
+        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
         startMainActivity();
     }
 
     private void handleRegister() {
-        String email = edtEmail.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
-        String confirmPassword = edtConfirmPassword.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String confirmPassword = confirmPasswordEditText != null ? confirmPasswordEditText.getText().toString().trim() : "";
 
-        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+        if (email.isEmpty() || password.isEmpty() || (!isLoginMode && confirmPassword.isEmpty())) {
+            Toast.makeText(this, "Vui lòng điền đầy đủ các trường", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!password.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+        if (!isLoginMode && !password.equals(confirmPassword)) {
+            Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Giả lập đăng ký thành công, trong thực tế sẽ call API
-        // Sau khi đăng ký thành công, tự động đăng nhập
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);
+
+        // Giả lập đăng ký thành công
         String mockToken = "mock_token_" + System.currentTimeMillis();
-
-        // Lưu thông tin đăng nhập
         auth.login(email, mockToken);
 
-        Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
+        loginButton.setEnabled(true);
+        Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
         startMainActivity();
     }
 
@@ -104,20 +116,19 @@ public class AuthActivity extends AppCompatActivity {
         isLoginMode = !isLoginMode;
 
         if (isLoginMode) {
-            titleText.setText("Login");
-            btnPrimaryAction.setText("Login");
-            toggleAuthMode.setText("Don't have an account? Register");
-            edtConfirmPassword.setVisibility(View.GONE);
+            if (titleText != null) titleText.setText("Đăng nhập");
+            loginButton.setText("Đăng nhập");
+            if (toggleAuthMode != null) toggleAuthMode.setText("Chưa có tài khoản? Đăng ký");
+            if (confirmPasswordEditText != null) confirmPasswordEditText.setVisibility(View.GONE);
         } else {
-            titleText.setText("Register");
-            btnPrimaryAction.setText("Register");
-            toggleAuthMode.setText("Already have an account? Login");
-            edtConfirmPassword.setVisibility(View.VISIBLE);
+            if (titleText != null) titleText.setText("Đăng ký");
+            loginButton.setText("Đăng ký");
+            if (toggleAuthMode != null) toggleAuthMode.setText("Đã có tài khoản? Đăng nhập");
+            if (confirmPasswordEditText != null) confirmPasswordEditText.setVisibility(View.VISIBLE);
         }
     }
 
     private void startMainActivity() {
-        // Chuyển đến màn hình chính của ứng dụng
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

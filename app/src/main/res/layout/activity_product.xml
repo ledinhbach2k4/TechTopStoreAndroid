@@ -151,6 +151,14 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- Container cho Fragment (CartFragment) -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" /> <!-- Ẩn mặc định, chỉ hiển thị khi cần -->
+
     <!-- Nút Thêm vào giỏ hàng và Mua ngay -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -159,7 +167,6 @@
         android:padding="16dp"
         android:background="@color/white"
         android:elevation="8dp">
-`
         <Button
             android:id="@+id/tv_add_to_cart"
             android:layout_width="0dp"

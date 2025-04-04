@@ -1,133 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:padding="24dp"
-    tools:context=".AuthActivity">
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:background="#F5F5F5">
 
-    <!-- App Logo/Header -->
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"
-        android:src="@mipmap/ic_launcher"
-        android:contentDescription="@string/app_logo" />
-
-    <!-- Title Text (Login/Register) -->
+    <!-- Tiêu đề -->
     <TextView
         android:id="@+id/title_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/login"
-        android:textSize="28sp"
+        android:text="Đăng nhập"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
+        android:textColor="#212121"
+        android:gravity="center"
+        android:layout_marginBottom="32dp" />
 
-    <!-- Email Input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_layout"
+    <!-- Email EditText -->
+    <EditText
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
-        app:errorEnabled="true">
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:importantForAutofill="auto" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Password Input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_layout"
+    <!-- Password EditText -->
+    <EditText
+        android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password"
-        app:errorEnabled="true"
-        android:layout_marginTop="8dp">
+        android:hint="Mật khẩu"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:importantForAutofill="auto" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Confirm Password Input (visible only in register mode) -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/confirm_password_layout"
+    <!-- Confirm Password EditText -->
+    <EditText
+        android:id="@+id/edt_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/confirm_password"
-        app:errorEnabled="true"
-        android:layout_marginTop="8dp"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Error Message -->
-    <TextView
-        android:id="@+id/txt_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/holo_red_dark"
+        android:hint="Xác nhận mật khẩu"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp"
         android:visibility="gone" />
 
-    <!-- Primary Action Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_primary_action"
+    <!-- Login/Register Button -->
+    <Button
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/login"
-        style="@style/Widget.MaterialComponents.Button"
-        app:cornerRadius="8dp" />
-
-    <!-- Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:visibility="gone" />
+        android:text="Đăng nhập"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
 
     <!-- Toggle Auth Mode -->
     <TextView
         android:id="@+id/toggle_auth_mode"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"
-        android:text="@string/dont_have_account_register"
-        android:textColor="?attr/colorPrimary"
-        style="@style/TextAppearance.AppCompat.Body1" />
+        android:text="Chưa có tài khoản? Đăng ký"
+        android:textSize="14sp"
+        android:textColor="#1976D2"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Forgot Password -->
-    <TextView
-        android:id="@+id/forgot_password"
+    <!-- ProgressBar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:text="@string/forgot_password"
-        android:textColor="?attr/colorPrimary"
-        android:visibility="visible"
-        style="@style/TextAppearance.AppCompat.Body2" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </LinearLayout>

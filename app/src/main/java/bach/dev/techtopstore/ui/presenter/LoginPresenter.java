@@ -1,5 +1,6 @@
 package bach.dev.techtopstore.ui.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import bach.dev.techtopstore.data.api.ApiService;
@@ -11,26 +12,45 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginPresenter implements LoginConstract.Presenter {
-    ApiService apiService = RetrofitClient.getApiService();
+    private final ApiService apiService = RetrofitClient.getApiService();
     private LoginConstract.View mView;
+    private final Context context; // Thêm Context để nhận từ LoginActivity
+
+    public LoginPresenter(Context context) {
+        this.context = context;
+    }
+
     @Override
     public void setView(LoginConstract.View view) {
-        mView = view;
+        this.mView = view;
     }
 
     @Override
     public void login(String email, String password) {
-        UserDto userDto = new UserDto(email, password);
-        Call<UserDto> call = apiService.login(userDto);
+        if (mView == null) return;
+        mView.showLoading();
+
+        Call<UserDto> call = apiService.login(email, password);
         call.enqueue(new Callback<UserDto>() {
             @Override
             public void onResponse(Call<UserDto> call, Response<UserDto> response) {
-                Log.i("UserDto", response.body().toString());
+                mView.hideLoading();
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.i("LoginPresenter", "Login success: " + response.body().toString());
+                    mView.showLoginSuccess(response.body());
+                } else {
+                    String errorMsg = "Login failed: " + (response != null ? response.message() : "No response");
+                    Log.e("LoginPresenter", errorMsg);
+                    mView.showError(errorMsg);
+                }
             }
 
             @Override
             public void onFailure(Call<UserDto> call, Throwable t) {
-
+                mView.hideLoading();
+                String errorMsg = "Login error: " + t.getMessage();
+                Log.e("LoginPresenter", errorMsg);
+                mView.showError(errorMsg);
             }
         });
     }

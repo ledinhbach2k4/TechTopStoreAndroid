@@ -6,18 +6,16 @@ import bach.dev.techtopstore.data.dto.OrderItemDto;
 
 public interface CartConstract {
     interface View {
-        void showLoading();
-        void hideLoading();
+        void showCartItems(List<OrderItemDto> items);
+        void showSuccess(String message);
         void showError(String message);
-        void showCartItems(List<OrderItemDto> cartItems);
-        void showCheckoutSuccess();
     }
 
     interface Presenter {
         void setView(View view);
-        void getCartItems();
+        void getCartItems(int orderId);
         void updateCartItem(int itemId, int newQuantity);
         void removeCartItem(int itemId);
-        void checkout();
+        void checkout(); // Thêm phương thức checkout
     }
 }

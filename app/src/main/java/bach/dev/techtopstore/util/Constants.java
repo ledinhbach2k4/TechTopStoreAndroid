@@ -2,7 +2,7 @@ package bach.dev.techtopstore.util;
 
 public class Constants {
     // API Configuration
-    public static final String API_BASE_PATH = "http://192.168.102.2:8080/api/";
+    public static final String API_BASE_PATH = "http://10.0.2.2:8080/api/";
 
     // API Endpoints
     public static final String LOGIN_ENDPOINT = "auth/login";

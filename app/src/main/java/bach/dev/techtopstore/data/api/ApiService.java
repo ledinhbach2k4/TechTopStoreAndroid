@@ -24,6 +24,18 @@ public interface ApiService {
     @GET("categories")
     Call<List<CategoryDto>> getCategories();
 
+    @GET("categories/{id}")
+    Call<CategoryDto> getCategory(@Path("id") int id);
+
+    @POST("categories")
+    Call<CategoryDto> createCategory(@Body CategoryDto categoryDto);
+
+    @PUT("categories/{id}")
+    Call<CategoryDto> updateCategory(@Path("id") int id, @Body CategoryDto categoryDto);
+
+    @DELETE("categories/{id}")
+    Call<Void> deleteCategory(@Path("id") int id);
+
     // Products
     @GET("products")
     Call<List<ProductDto>> getProducts();
@@ -43,13 +55,49 @@ public interface ApiService {
             @Query("order") String order
     );
 
+    @POST("products")
+    Call<ProductDto> createProduct(@Body ProductDto productDto);
+
+    @PUT("products/{id}")
+    Call<ProductDto> updateProduct(@Path("id") int id, @Body ProductDto productDto);
+
+    @DELETE("products/{id}")
+    Call<Void> deleteProduct(@Path("id") int id);
+
     // Users
+    @FormUrlEncoded
     @POST("auth/login")
-    Call<UserDto> login(@Body UserDto userDto);
+    Call<UserDto> login(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
+    @POST("auth/register")
+    Call<UserDto> register(@Body UserDto userDto);
+
+    @GET("users")
+    Call<List<UserDto>> getUsers();
+
+    @GET("users/{id}")
+    Call<UserDto> getUser(@Path("id") int id);
+
+    @POST("users")
+    Call<UserDto> createUser(@Body UserDto userDto);
+
+    @PUT("users/{id}")
+    Call<UserDto> updateUser(@Path("id") int id, @Body UserDto userDto);
+
+    @DELETE("users/{id}")
+    Call<Void> deleteUser(@Path("id") int id);
 
     // Cart and Orders
     @POST("cart/add-to-cart")
-    Call<OrderItemDto> addToCart(@Body OrderItemDto orderItemDto);
+    Call<OrderItemDto> addToCart(
+            @Query("product_id") int productId,
+            @Query("order_id") int orderId,
+            @Query("quantity") int quantity,
+            @Query("price") double price
+    );
 
     @GET("orders/get-by-status")
     Call<OrderDto> getOrderByStatus(
@@ -57,22 +105,50 @@ public interface ApiService {
             @Query("status") String status
     );
 
-    // Thêm các phương thức cho giỏ hàng
-    @GET("cart/items")
-    Call<List<OrderItemDto>> getCartItems();
+    @GET("cart/items/{orderId}")
+    Call<List<OrderItemDto>> getCartItems(@Path("orderId") int orderId);
 
-    @FormUrlEncoded
-    @PUT("cart/items/{itemId}")
+    @PUT("order-items/{id}")
     Call<OrderItemDto> updateCartItem(
-            @Path("itemId") int itemId,
-            @Field("quantity") int quantity
+            @Path("id") int itemId,
+            @Body OrderItemDto orderItemDto
     );
 
-    @DELETE("cart/items/{itemId}")
-    Call<Void> removeCartItem(
-            @Path("itemId") int itemId
-    );
+    @DELETE("order-items/{id}")
+    Call<Void> removeCartItem(@Path("id") int itemId);
 
-    @POST("cart/checkout")
-    Call<Void> checkout();
+    @PUT("orders/{id}")
+    Call<OrderDto> checkout(@Path("id") int orderId, @Body OrderDto orderDto);
+
+    // Order Management
+    @GET("orders")
+    Call<List<OrderDto>> getOrders();
+
+    @GET("orders/{id}")
+    Call<OrderDto> getOrder(@Path("id") int id);
+
+    @POST("orders")
+    Call<OrderDto> createOrder(@Body OrderDto orderDto);
+
+    @PUT("orders/{id}")
+    Call<OrderDto> updateOrder(@Path("id") int id, @Body OrderDto orderDto);
+
+    @DELETE("orders/{id}")
+    Call<Void> deleteOrder(@Path("id") int id);
+
+    // Order Items
+    @GET("order-items")
+    Call<List<OrderItemDto>> getOrderItems();
+
+    @GET("order-items/{id}")
+    Call<OrderItemDto> getOrderItem(@Path("id") int id);
+
+    @POST("order-items")
+    Call<OrderItemDto> createOrderItem(@Body OrderItemDto orderItemDto);
+
+    @PUT("order-items/{id}")
+    Call<OrderItemDto> updateOrderItem(@Path("id") int id, @Body OrderItemDto orderItemDto);
+
+    @DELETE("order-items/{id}")
+    Call<Void> deleteOrderItem(@Path("id") int id);
 }

@@ -3,12 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
+    <!-- Biểu tượng bảo trì -->
+    <ImageView android:src="@drawable/ic_maintenance"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:contentDescription="Maintenance Icon"
+    android:layout_marginBottom="20dp"/>
+
+    <!-- Thông báo bảo trì -->
     <TextView
-        android:text="Favourite Fragment"
-        android:layout_width="match_parent"
+        android:text="Trang này đang được bảo trì\nVui lòng quay lại sau."
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textSize="18sp"
+        android:textColor="#FF0000"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Tùy chọn liên kết quay lại trang chủ hoặc thêm hành động -->
+    <Button
+        android:text="Trở về trang chủ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToHomePage" /> <!-- Hàm goToHomePage sẽ được định nghĩa trong Activity của bạn -->
+
 </LinearLayout>

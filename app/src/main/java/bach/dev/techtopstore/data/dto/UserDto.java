@@ -1,23 +1,45 @@
 package bach.dev.techtopstore.data.dto;
 
+import com.google.gson.annotations.SerializedName;
+
 public class UserDto {
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("password")
     private String password;
-    private String role;
 
+    @SerializedName("username")
+    private String username;
+
+    // Constructor mặc định (cần cho Gson)
+    public UserDto() {
+        this.id = 0;
+        this.email = "";
+        this.password = "";
+        this.username = "";
+    }
+
+    // Constructor cho đăng nhập (chỉ cần email và password)
     public UserDto(String email, String password) {
-        this.email = email;
-        this.password = password;
+        this.id = 0;
+        this.email = email != null ? email : "";
+        this.password = password != null ? password : "";
+        this.username = "";
     }
 
-    public UserDto(int id, String email, String password, String role) {
+    // Constructor đầy đủ
+    public UserDto(int id, String email, String password, String username) {
         this.id = id;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        this.email = email != null ? email : "";
+        this.password = password != null ? password : "";
+        this.username = username != null ? username : "";
     }
 
+    // Getters và Setters
     public int getId() {
         return id;
     }
@@ -31,7 +53,7 @@ public class UserDto {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email != null ? email : "";
     }
 
     public String getPassword() {
@@ -39,14 +61,24 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password != null ? password : "";
     }
 
-    public String getRole() {
-        return role;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUsername(String username) {
+        this.username = username != null ? username : "";
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                '}';
     }
 }
